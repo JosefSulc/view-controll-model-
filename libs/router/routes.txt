@@ -1,0 +1,3 @@
+            | controller=>home, method=>cat
+dog         | controller=>home, method=>dog
+hue/.name   | controller=>hue, method=>index
