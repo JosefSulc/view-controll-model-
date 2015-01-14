@@ -24,12 +24,6 @@ class App {
         if (file_exists('controllers/' . $class . '.php')) {
             require 'controllers/' . $class . '.php';
 
-            function params() {
-                if (isset($call['params'])) {
-                    
-                }
-            }
-
             $controller = isset($call['params']) ? new $class($call['params']) : new $class();
             if (method_exists($controller, $call['method'])) {
                 $controller->$call['method']();
