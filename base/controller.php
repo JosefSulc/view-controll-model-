@@ -18,7 +18,8 @@ class baseController {
             $this->model = new $classModel;
         }
 
-        $this->view = 'views/' . $name . 'View.php';
+        $this->view = new View();
+        
         $this->params = $params;
     }
 

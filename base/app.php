@@ -12,10 +12,11 @@ class App {
 //Loading bases
         require 'base/controller.php';
         require 'base/model.php';
+        require 'base/view.php';
 
 //Loading config
         require 'config/config.php';
-        $this->url = rtrim(ltrim($_SERVER['REQUEST_URI'], '/mvc/'), '/');
+        $this->url = trim($_SERVER['REQUEST_URI'], '/');
     }
 
     function loadController() {
