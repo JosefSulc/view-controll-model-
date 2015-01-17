@@ -1,6 +1,8 @@
 <?php
 
 class View {
+    private $title = TITLE;
+    private $style = STYLESHEET;
 
     public function render($view, $content = false) {
         include 'front/templates/header.php';

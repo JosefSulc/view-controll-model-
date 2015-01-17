@@ -1,7 +1,6 @@
 <?php
 
-define('HOST','wm79.wedos.net');
-define('USER','a88033_jsulc');
-define('PASS','AABCAFCDEF');
-define('DB','d88033_jsulc');
-define('TITLE','MVC');
+define('ROOT','http://josefsulc.eu');
+
+define('TITLE','Josef Šulc');
+define('STYLESHEET',ROOT.'/front/css/default.css');

@@ -7,6 +7,7 @@ class baseController {
     protected $content;
     protected $params;
     protected $title = TITLE;
+    protected $style = STYLESHEET;
 
     public function __construct($params = false) {
         //Rework 
