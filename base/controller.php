@@ -19,7 +19,7 @@ class baseController {
         }
 
         $this->view = new View();
-        
+
         $this->params = $params;
     }
 

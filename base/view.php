@@ -3,9 +3,13 @@
 class View {
 
     public function render($view, $content = false) {
-        require 'front/templates/header.php';
+        include 'front/templates/header.php';
         include 'views/' . $view . '.php';
-        require 'front/templates/footer.php';
+        include 'front/templates/footer.php';
+    }
+
+    public function ruleOfThree($color = red) {
+        include 'libs/ro3/ro3.php';
     }
 
 }
