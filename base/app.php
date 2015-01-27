@@ -6,12 +6,15 @@ class App {
 
     public function __construct() {
 //Loading libraries
+
+
         require 'libs/router/router.php';
         router::$path = 'libs/router/routes.txt';
 
 //Loading bases
         require 'base/controller.php';
         require 'base/model.php';
+        require 'base/session.php';
         require 'base/view.php';
 
 //Loading config

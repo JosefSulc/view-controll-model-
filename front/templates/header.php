@@ -12,13 +12,19 @@
         <div class="header">
             <div class="header-wrapper">
                 <div class="header-headings">
-			<h1>Hello!</h1>
-                	<div class="links">
-                    		<a href="http://josefsulc.eu">Index</a>
-                    		<a href="http://josefsulc.eu/hue/cat">Hue</a>
-                    		<a href="http://josefsulc.eu/404">Error</a>
-                	</div>
-		</div>
+                    <h1>Hello!</h1>
+                    <div class="links">
+                        <a href="http://josefsulc.eu">Index</a>
+                        <?php
+                        if (Session::getValue('logged') === false) {
+                            echo '<a href="http://josefsulc.eu/login">Log-in</a>';
+                        } else {
+                            echo '<a href="http://josefsulc.eu/logout">Log-out</a>';
+                        }
+                        ?>
+                        <a href="http://josefsulc.eu/404">Error</a>
+                    </div>
+                </div>
             </div>
 
         </div>

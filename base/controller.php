@@ -10,7 +10,7 @@ class baseController {
     protected $style = STYLESHEET;
 
     public function __construct($params = false) {
-        //Rework 
+        Session::start();
         $name = str_replace('Controller', '', get_class($this));
         $classModel = $name . 'Model';
 

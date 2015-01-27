@@ -1,0 +1,86 @@
+body {background-color:#0F0F0F;}
+p {color:white;}
+.wrapper {width:800px; min-height:300px; margin:auto; padding:10px;}
+
+.login_form {text-align:center;}
+.login_form form input[type=submit] {border:0;}
+
+
+table {color:white; margin:auto; top:100px; position:absolute;}
+th {background-color:#BF3048; box-shadow:2px 2px 5px #6D1B29; color:#0F0F0F; font-family:'Slabo 27px',Arial; font-size:16px;}
+th[id=id] {width:25px;}
+th[id=note] {width:500px;}
+th[id=timestamp] {width:140px;}
+
+td {text-align:center; font-size:14px; border-bottom:1px solid #BF3048; padding:2px; }
+td[class=notes] {text-align:left;}
+
+.add {width:200px; float:left;}
+.modify { width:200px; margin:auto;}
+.remove { width:200px; float:right;}
+
+input[name=logout] {position:absolute; border:0; top:103px; left:500px;}
+
+/*Deleting spinners*/
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/*Add form*/
+/*General properties*/
+form[id=add] input[type=text] {background-color:#30BF5F; border:0px;}
+form[id=add] input[type=submit] {border:0px;}
+
+/*Inactive look*/
+form[id=add] input[type=text] {width:50px; height:50px; border-radius:100%; color:white; font-size:60px; text-align:center; text-shadow:1px 1px 5px black;}
+form[id=add] input[type=submit] {display:none;}
+
+/* on hover it looks like this*/
+form[id=add]:hover input[type=text] {width:195px; height:20px; border:2px solid black; border-radius:0; text-shadow:0; color:black; font-size:15px;}
+form[id=add]:hover input[type=submit] {display:block; width:201px; border:2px solid black;}
+
+/*Modify form*/
+/*General properties*/
+form[id=modify] input[type=number] {background-color:#BF4730; border:0px;}
+form[id=modify] input[type=text] {background-color:#BF4730; border:0px;}
+form[id=modify] input[type=submit] {border:0px;}
+
+/*on hover*/
+form[id=modify]:hover input[type=number] {display:inline-block; width:40px; border:2px solid black; border-radius:0; text-shadow:0; color:black; font-size:15px;}
+form[id=modify]:hover input[type=text] {display:inline-block; border:2px solid black; border-radius:0; text-shadow:0; color:black; width:140px; height:18px; font-size:15px;}
+form[id=modify]:hover input[type=submit] {display:inline-block; width:196px; border:2px solid black;}
+
+/*Inactive*/
+form[id=modify] input[type=number] {display:none;}
+form[id=modify] input[type=text] {width:50px; height:50px; border-radius:100%; text-align:center; color:white; text-shadow:1px 1px 5px black; font-size:35px;}
+form[id=modify] input[type=submit] {display:none;}
+
+/*Remove form*/
+/*General properties*/
+form[id=remove] [type=number] {background-color:#BF3048; border:0;}
+form[id=remove] [type=submit] {border:0px;}
+
+/*on hover*/
+form[id=remove]:hover [type=number] {display:inline-block; width:40px; height:16px; border:2px solid black; border-radius:0; font-size:15px; color:black; text-shadow:0;}
+form[id=remove]:hover [type=submit] {display:inline-block; width:145px; border:2px solid black;}
+
+/*Inactive*/
+form[id=remove] [type=number] {width:50px; height:50px; border-radius:100%; color:white; font-size:60px; text-align:center; text-shadow:1px 1px 5px black;}
+form[id=remove] [type=submit] {display:none;}
+
+
+
+
+
+
+
+
+
+
+

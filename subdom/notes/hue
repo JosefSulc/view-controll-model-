@@ -1,0 +1,885 @@
+REM Room Subs
+dim shared room as double
+REM %%%%%%%%%%
+declare sub room0
+declare sub room1
+declare sub roomminus1
+declare sub roomminus1p1
+REM Inventory Dims (0 = not picked up, 1 = picked up, 2 = used)
+dim shared roommemory (1 to 8) as string REM Number of rooms * 2
+dim shared key as integer
+dim shared sword as integer
+dim shared paper as integer
+dim shared hadpaper as integer
+dim shared slots(1 to 5) as string
+slots(1) = "nothing"
+slots(2) = "nothing"
+slots(3) = "nothing"
+slots(4) = "nothing"
+slots(5) = "nothing"
+roommemory (1) = "nothing"
+roommemory (2) = "nothing"
+roommemory (3) = "key"
+roommemory (4) = "nothing"
+roommemory (5) = "sword"
+roommemory (6) = "nothing"
+roommemory (7) = "nothing"
+roommemory (8) = "nothing"
+REM Main Subs
+declare sub introduction
+declare sub debug
+declare sub inv
+declare sub rooms
+REM Action Sub
+dim shared side as string
+REM Utility Subs
+declare sub dooropen
+declare sub doorclose
+declare sub boxopen
+declare sub boxclose
+dim shared doorstate as integer
+dim shared boxstate as integer
+dim shared item as string
+declare sub invcheck
+declare sub invdrop
+dim shared i as integer
+
+
+REM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+introduction
+sub introduction
+    print "********************************************************************************"
+    print "This is the testing engine handling rooms and inventory for the upcoming Whirlwind"
+    print "Text-adventure"
+
+    print "Created by DarthAdon"
+    print "in 2011"
+    print "    _____ _            __        ___     _      _            _           _
+    print "   |_   _| |__   ___   \ \      / / |_  (_)_ __| |__      __(_)_ __   __| |
+    print "     | | |  _ \ / _ \   \ \ /\ / /|  _ \| | v__| |\ \ /\ / /| | v_ \ / _  |
+    print "     | | | | | |  __/    \ V  V / | | | | | |  | | \ V  V / | | | | | (_| |
+    print "     |_| |_| |_|\___|     \_/\_/  |_| |_|_|_|  |_|  \_/\_/  |_|_| |_|\__,_|
+    print ""
+    print ""
+    print ""
+    print ""
+    print ""
+    print ""
+    print ""
+    print ""
+    print ""
+    print ""
+    print ""
+    print "********************************************************************************"
+    sleep
+    cls
+end sub
+REM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+REM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+rooms
+sub rooms
+
+REM coordinates of rooms = X +1/-1, Y = +100/-100, Z = +0,1/-0,1
+if room = 0 then
+   room0
+elseif room = -1 then
+   roomminus1
+elseif room = -1.1 then
+   roomminus1p1   REM roomminus1p1 means X=-1, Z=1
+elseif room = 1 then
+    room1
+
+
+end if
+end sub
+REM %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+REM Room Subs %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+REM Non working inv checking stub below
+REM room0key
+REM sub room0key
+REM if slots (i) < "key" then
+REM        print "This room contains a key which you can take"
+REM  else
+REM      i = i + 1
+REM        room0key
+REM  end if
+REM end sub
+
+
+room0
+sub room0
+    cls
+    if roommemory (3) <> "nothing" then
+        print "This room contains a " ; roommemory (3); " which you can take"
+    end if
+    if roommemory (4) <> "nothing" then
+        print "This room contains a " ; roommemory (4); " which you can take"
+    end if
+   input "Press W to go to the west, and E to go to the East (behind door)" ; side
+    if side = "take key" then
+        if key = 1 then
+            room0
+        end if
+        item = "key"
+        invcheck
+    elseif side = "get key" then
+        if key = 1 then
+            room0
+        end if
+        item = "key"
+        invcheck
+    elseif side = "take all" then
+        if key = 1 then
+            room0
+        end if
+        item = "key"
+        invcheck
+    elseif side = "w" then
+        room = -1
+        rooms
+    elseif side = "go west" then
+        room = -1
+        rooms
+    elseif side = "west" then
+        room = -1
+        rooms
+    elseif side = "e" then
+        dooropen
+    elseif side = "go east" then
+        dooropen
+    elseif side = "east" then
+        dooropen
+    elseif side = "open door" then
+        dooropen
+    elseif side = "debug" then
+        debug
+    elseif side = "inv" then
+        inv
+    elseif side = "inventory" then
+        inv
+    elseif side = "drop key" then
+        if key = 1 then
+            invdrop
+        end if
+    elseif side = "drop sword" then
+        if sword = 1 then
+            invdrop
+        end if
+    elseif side = "drop paper" then
+        if kpaper = 1 then
+            invdrop
+        end if
+    REM CHEAT/DEBUG elseif (Delete)
+    elseif side = "cheat" then
+        room = 1
+        rooms
+    else
+        rooms
+    end if
+end sub
+
+
+roomminus1
+sub roomminus1
+    cls
+    if roommemory (1) <> "nothing" then
+        print "This room contains a " ; roommemory (1); " which you can take"
+    end if
+    if roommemory (2) <> "nothing" then
+        print "This room contains a " ; roommemory (2); " which you can take"
+    end if
+
+    input "Press E to go to the East or U to go Up" ; side
+    if side = "e" then
+        room = 0
+        rooms
+    elseif side = "go east" then
+        room = 0
+        rooms
+    elseif side = "east" then
+        room = 0
+        rooms
+    elseif side = "u" then
+        room = -1.1
+        rooms
+    elseif side = "up" then
+        room = -1.1
+        rooms
+    elseif side = "go up" then
+        room = -1.1
+        rooms
+    elseif side = "debug" then
+        debug
+    elseif side = "inv" then
+        inv
+    elseif side = "inventory" then
+        inv
+    elseif side = "drop key" then
+        if key = 1 then
+            invdrop
+        end if
+    elseif side = "drop sword" then
+        if sword = 1 then
+            invdrop
+        end if
+    elseif side = "drop paper" then
+        if kpaper = 1 then
+            invdrop
+        end if
+    else
+        rooms
+    end if
+end sub
+
+room1
+sub room1
+    cls
+    if roommemory (5) <> "nothing" then
+        print "This room contains a " ; roommemory (5); " which you can take"
+    end if
+    if roommemory (6) <> "nothing" then
+        print "This room contains a " ; roommemory (6); " which you can take"
+    end if
+    input "Press W to go to the West" ; side
+
+    if side = "w" then
+        room = 0
+        rooms
+    elseif side = "go west" then
+        room = 0
+        rooms
+    elseif side = "west" then
+        room = 0
+        rooms
+    elseif side = "take sword" then
+        if sword = 1 then
+            room1
+        end if
+        item = "sword"
+        invcheck
+    elseif side = "get sword" then
+        if sword = 1 then
+            room1
+        end if
+        item = "sword"
+        invcheck
+    elseif side = "take all" then
+        if sword = 1 then
+            room1
+        end if
+        item = "sword"
+        invcheck
+    elseif side = "debug" then
+        debug
+    elseif side = "inv" then
+        inv
+    elseif side = "inventory" then
+        inv
+       elseif side = "drop key" then
+        if key = 1 then
+            invdrop
+        end if
+    elseif side = "drop sword" then
+        if sword = 1 then
+            invdrop
+        end if
+    elseif side = "drop paper" then
+        if kpaper = 1 then
+            invdrop
+        end if
+    else
+        rooms
+    end if
+rooms
+end sub
+
+roomminus1p1
+sub roomminus1p1
+    cls
+    if roommemory (7) <> "nothing" then
+        print "This room contains a " ; roommemory (7); " which you can take"
+    end if
+    if roommemory (8) <> "nothing" then
+        print "This room contains a " ; roommemory (8); " which you can take"
+    end if
+    input "Press D to go down, or try to open the box in the corner" ; side
+    if boxstate = 1 then
+         if hadpaper = 0 then
+         print "You can also take the paper out of the opened box"
+         end if
+    end if
+
+    if side = "d" then
+        room = -1
+        rooms
+    elseif side = "go down" then
+        room = -1
+        rooms
+    elseif side = "open box" then
+        if boxstate = 0 then
+        boxopen
+        else
+        print "The box is already opened"
+        rooms
+        end if
+
+    elseif side ="close box" then
+        if boxstate = 1 then
+        boxclose
+        elseif boxstate = 0 then
+        print "The box is closed, therefore you can't close it"
+        rooms
+        end if
+    elseif side = "take paper" then
+        if boxstate = 1 then
+            if paper = 0 then
+            item = "paper"
+            invcheck
+            else
+            rooms
+            end if
+        else
+            rooms
+        end if
+    elseif side = "get paper" then
+        if boxstate = 1 then
+            if paper = 0 then
+            item = "paper"
+            invcheck
+            else
+            rooms
+            end if
+        else
+            rooms
+        end if
+    elseif side = "pick paper" then
+        if boxstate = 1 then
+            if paper = 0 then
+            item = "paper"
+            invcheck
+            else
+            rooms
+            end if
+        else
+            rooms
+        end if
+   elseif side = "take all" then
+        if boxstate = 1 then
+            if paper = 0 then
+            item = "paper"
+            invcheck
+            else
+            rooms
+            end if
+        else
+            rooms
+        end if
+   elseif side = "debug" then
+        debug
+   elseif side = "inv" then
+        inv
+   elseif side = "inventory" then
+        inv
+      elseif side = "drop key" then
+        if key = 1 then
+            invdrop
+        end if
+    elseif side = "drop sword" then
+        if sword = 1 then
+            invdrop
+        end if
+    elseif side = "drop paper" then
+        if kpaper = 1 then
+            invdrop
+        end if
+   else
+        rooms
+end if
+end sub
+
+dooropen
+sub dooropen
+   if doorstate = 0 then
+    if slots(1) = "key" then
+        doorstate = 1
+        print "You have opened the door"
+        sleep
+    elseif slots(2) = "key" then
+        doorstate = 1
+        print "You have opened the door"
+        sleep
+    elseif slots(3) = "key" then
+        doorstate = 1
+        print "You have opened the door"
+        sleep
+    elseif slots(4) = "key" then
+        doorstate = 1
+        print "You have opened the door"
+        sleep
+    elseif slots(5) = "key" then
+        doorstate = 1
+        print "You have opened the door"
+        sleep
+    else
+        print "The door is locked and closed"
+        sleep
+    end if
+   else
+       room = 1
+   end if
+   rooms
+rooms
+end sub
+
+boxopen
+sub boxopen
+    boxstate = 1
+    print "You have opened the box"
+    sleep
+    rooms
+end sub
+
+boxclose
+sub boxclose
+    boxstate = 0
+    print "You have closed the box"
+    sleep
+    rooms
+end sub
+
+debug
+sub debug
+    cls
+    print "room =" ; room
+    print "key =" ; key
+    print "sword =" ; sword
+    print "paper =" ; paper
+    print "doorstate =" ; doorstate
+    print "boxstate =" ; boxstate
+    print "item =" ; item
+    print "roommemory 1" ; roommemory (1)
+    print "roommemory 2" ; roommemory (2)
+    print "roommemory 3" ; roommemory (3)
+    print "roommemory 4" ; roommemory (4)
+    print "roommemory 5" ; roommemory (5)
+    print "roommemory 6" ; roommemory (6)
+    print "roommemory 7" ; roommemory (7)
+    print "roommemory 8" ; roommemory (8)
+    sleep
+    rooms
+end sub
+
+inv
+sub inv
+    cls
+    print slots(1)
+    print slots(2)
+    print slots(3)
+    print slots(4)
+    print slots(5)
+    sleep
+    rooms
+end sub
+
+invcheck
+sub invcheck
+    if slots(1) = "nothing" then
+       slots(1) = item
+
+        if item = "key" then
+            key = 1
+            print "You have taken the key"
+            sleep
+        end if
+
+        if item = "sword" then
+            sword = 1
+            print "You obtained a sword"
+            sleep
+        end if
+
+        if item = "paper" then
+            paper = 1
+            hadpaper = 1
+            print "You have picked out the paper out of the box"
+            sleep
+        end if
+
+    elseif slots(2) = "nothing" then
+        slots(2) = item
+
+         if item = "key" then
+            key = 1
+            print "You have taken the key"
+            sleep
+         end if
+
+         if item = "sword" then
+            sword = 1
+            print "You obtained a sword"
+            sleep
+         end if
+
+         if item = "paper" then
+            paper = 1
+            hadpaper = 1
+            print "You have picked out the paper out of the box"
+            sleep
+         end if
+
+    elseif slots(3) = "nothing" then
+        slots(3) = item
+
+         if item = "key" then
+            key = 1
+            print "You have taken the key"
+            sleep
+         end if
+
+         if item = "sword" then
+            sword = 1
+            print "You obtained a sword"
+            sleep
+         end if
+
+         if item = "paper" then
+            paper = 1
+            hadpaper = 1
+            print "You have picked out the paper out of the box"
+            sleep
+         end if
+
+    elseif slots(4) = "nothing" then
+        slots(4) = item
+
+         if item = "key" then
+            key = 1
+            print "You have taken the key"
+            sleep
+         end if
+
+         if item = "sword" then
+            sword = 1
+            print "You obtained a sword"
+            sleep
+         end if
+
+         if item = "paper" then
+            paper = 1
+            hadpaper = 1
+            print "You have picked out the paper out of the box"
+            sleep
+         end if
+
+    elseif slots(5) = "nothing" then
+        slots(5) = item
+        if item = "key" then
+            key = 1
+            print "You have taken the key"
+            sleep
+        end if
+
+        if item = "sword" then
+            sword = 1
+            print "You obtained a sword"
+            sleep
+        end if
+
+        if item = "paper" then
+            paper = 1
+            hadpaper = 1
+            print "You have picked out the paper out of the box"
+            sleep
+        end if
+
+    else
+        print "You don't have any more room inside your inventory"
+        sleep
+    end if
+    rooms
+end sub
+
+invdrop
+sub invdrop
+if item = "key" then
+        if key = 1 then
+        key = 0
+        print "You have dropped the key"
+        else
+        print "You can't drop something you don't have"
+        rooms
+        end if
+    if room = -1 then
+           if roommemory (1) = "nothing" then
+               roommemory (1) = "key"
+           elseif roommemory (2) = "nothing" then
+               roommemory (2) = "key"
+           else
+               print "This room is full of your crap, take it somewhere else"
+               rooms
+           end if
+          if slots (1) = "key" then
+                 slots (1) = "nothing"
+             elseif slots (2) = "key" then
+                 slots (2) = "nothing"
+             elseif slots (3) = "key" then
+                 slots (3) = "nothing"
+             elseif slots (4) = "key" then
+                 slots (4) = "nothing"
+             elseif slots (5) = "key" then
+                 slots (5) = "nothing"
+            end if
+
+    elseif room = 0 then
+           if roommemory (3) = "nothing" then
+               roommemory (3) = "key"
+           elseif roommemory (4) = "nothing" then
+               roommemory (4) = "key"
+           else
+               print "This room is full of your crap, take it somewhere else"
+               rooms
+            end if
+           if slots (1) = "key" then
+                 slots (1) = "nothing"
+             elseif slots (2) = "key" then
+                 slots (2) = "nothing"
+             elseif slots (3) = "key" then
+                 slots (3) = "nothing"
+             elseif slots (4) = "key" then
+                 slots (4) = "nothing"
+             elseif slots (5) = "key" then
+                 slots (5) = "nothing"
+            end if
+    elseif room = 1 then
+           if roommemory (5) = "nothing" then
+               roommemory (5) = "key"
+           elseif roommemory (6) = "nothing" then
+               roommemory (6) = "key"
+           else
+               print "This room is full of your crap, take it somewhere else"
+               rooms
+           end if
+           if slots (1) = "key" then
+                 slots (1) = "nothing"
+             elseif slots (2) = "key" then
+                 slots (2) = "nothing"
+             elseif slots (3) = "key" then
+                 slots (3) = "nothing"
+             elseif slots (4) = "key" then
+                 slots (4) = "nothing"
+             elseif slots (5) = "key" then
+                 slots (5) = "nothing"
+            end if
+    elseif room = -1.1 then
+           if roommemory (7) = "nothing" then
+               roommemory (7) = "key"
+           elseif roommemory (8) = "nothing" then
+               roommemory (8) = "key"
+           else
+               print "This room is full of your crap, take it somewhere else"
+               rooms
+               end if
+           if slots (1) = "key" then
+                 slots (1) = "nothing"
+             elseif slots (2) = "key" then
+                 slots (2) = "nothing"
+             elseif slots (3) = "key" then
+                 slots (3) = "nothing"
+             elseif slots (4) = "key" then
+                 slots (4) = "nothing"
+             elseif slots (5) = "key" then
+                 slots (5) = "nothing"
+            end if
+    end if
+
+   elseif item = "sword" then
+        if sword = 1 then
+        sword = 0
+        print "You have dropped the sword"
+        else
+        print "You can't drop something you don't have"
+        rooms
+        end if
+    if room = -1 then
+           if roommemory (1) = "nothing" then
+               roommemory (1) = "sword"
+           elseif roommemory (2) = "nothing" then
+               roommemory (2) = "sword"
+           else
+               print "This room is full of your crap, take it somewhere else"
+               rooms
+           end if
+          if slots (1) = "sword" then
+                 slots (1) = "nothing"
+             elseif slots (2) = "sword" then
+                 slots (2) = "nothing"
+             elseif slots (3) = "sword" then
+                 slots (3) = "nothing"
+             elseif slots (4) = "sword" then
+                 slots (4) = "nothing"
+             elseif slots (5) = "sword" then
+                 slots (5) = "nothing"
+            end if
+
+    elseif room = 0 then
+           if roommemory (3) = "nothing" then
+               roommemory (3) = "sword"
+           elseif roommemory (4) = "nothing" then
+               roommemory (4) = "sword"
+           else
+               print "This room is full of your crap, take it somewhere else"
+               rooms
+            end if
+           if slots (1) = "sword" then
+                 slots (1) = "nothing"
+             elseif slots (2) = "sword" then
+                 slots (2) = "nothing"
+             elseif slots (3) = "sword" then
+                 slots (3) = "nothing"
+             elseif slots (4) = "sword" then
+                 slots (4) = "nothing"
+             elseif slots (5) = "sword" then
+                 slots (5) = "nothing"
+            end if
+    elseif room = 1 then
+           if roommemory (5) = "nothing" then
+               roommemory (5) = "sword"
+           elseif roommemory (6) = "nothing" then
+               roommemory (6) = "sword"
+           else
+               print "This room is full of your crap, take it somewhere else"
+               rooms
+           end if
+           if slots (1) = "sword" then
+                 slots (1) = "nothing"
+             elseif slots (2) = "sword" then
+                 slots (2) = "nothing"
+             elseif slots (3) = "sword" then
+                 slots (3) = "nothing"
+             elseif slots (4) = "sword" then
+                 slots (4) = "nothing"
+             elseif slots (5) = "sword" then
+                 slots (5) = "nothing"
+            end if
+    elseif room = -1.1 then
+           if roommemory (7) = "nothing" then
+               roommemory (7) = "sword"
+           elseif roommemory (8) = "nothing" then
+               roommemory (8) = "sword"
+           else
+               print "This room is full of your crap, take it somewhere else"
+               rooms
+               end if
+           if slots (1) = "sword" then
+                 slots (1) = "nothing"
+             elseif slots (2) = "sword" then
+                 slots (2) = "nothing"
+             elseif slots (3) = "sword" then
+                 slots (3) = "nothing"
+             elseif slots (4) = "sword" then
+                 slots (4) = "nothing"
+             elseif slots (5) = "sword" then
+                 slots (5) = "nothing"
+            end if
+    end if
+    elseif item = "paper" then
+        if sword = 1 then
+        sword = 0
+        print "You have dropped the paper"
+        else
+        print "You can't drop something you don't have"
+        rooms
+        end if
+    if room = -1 then
+           if roommemory (1) = "nothing" then
+               roommemory (1) = "paper"
+           elseif roommemory (2) = "nothing" then
+               roommemory (2) = "paper"
+           else
+               print "This room is full of your crap, take it somewhere else"
+               rooms
+           end if
+          if slots (1) = "paper" then
+                 slots (1) = "nothing"
+             elseif slots (2) = "paper" then
+                 slots (2) = "nothing"
+             elseif slots (3) = "paper" then
+                 slots (3) = "nothing"
+             elseif slots (4) = "paper" then
+                 slots (4) = "nothing"
+             elseif slots (5) = "paper" then
+                 slots (5) = "nothing"
+            end if
+
+    elseif room = 0 then
+           if roommemory (3) = "nothing" then
+               roommemory (3) = "paper"
+           elseif roommemory (4) = "nothing" then
+               roommemory (4) = "paper"
+           else
+               print "This room is full of your crap, take it somewhere else"
+               rooms
+            end if
+           if slots (1) = "paper" then
+                 slots (1) = "nothing"
+             elseif slots (2) = "paper" then
+                 slots (2) = "nothing"
+             elseif slots (3) = "paper" then
+                 slots (3) = "nothing"
+             elseif slots (4) = "sword" then
+                 slots (4) = "nothing"
+             elseif slots (5) = "paper" then
+                 slots (5) = "nothing"
+            end if
+    elseif room = 1 then
+           if roommemory (5) = "nothing" then
+               roommemory (5) = "paper"
+           elseif roommemory (6) = "nothing" then
+               roommemory (6) = "paper"
+           else
+               print "This room is full of your crap, take it somewhere else"
+               rooms
+           end if
+           if slots (1) = "paper" then
+                 slots (1) = "nothing"
+             elseif slots (2) = "paper" then
+                 slots (2) = "nothing"
+             elseif slots (3) = "paper" then
+                 slots (3) = "nothing"
+             elseif slots (4) = "paper" then
+                 slots (4) = "nothing"
+             elseif slots (5) = "paper" then
+                 slots (5) = "nothing"
+            end if
+    elseif room = -1.1 then
+           if roommemory (7) = "nothing" then
+               roommemory (7) = "paper"
+           elseif roommemory (8) = "nothing" then
+               roommemory (8) = "paper"
+           else
+               print "This room is full of your crap, take it somewhere else"
+               rooms
+               end if
+           if slots (1) = "paper" then
+                 slots (1) = "nothing"
+             elseif slots (2) = "paper" then
+                 slots (2) = "nothing"
+             elseif slots (3) = "paper" then
+                 slots (3) = "nothing"
+             elseif slots (4) = "paper" then
+                 slots (4) = "nothing"
+             elseif slots (5) = "paper" then
+                 slots (5) = "nothing"
+            end if
+    end if
+
+end if REM THE ITEM TYPE END IF
+end sub
+
